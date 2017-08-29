@@ -2,12 +2,6 @@ body {
   margin: 0;
 }
 
-.btnGeneral {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
 #calculator {
   background-color: black; /* #778ad6; */
   max-width: 185px;
@@ -35,6 +29,9 @@ body {
   border-width: 0;
   margin: 1px;
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .btnOptr:active {
   background: #dc6600;
@@ -48,6 +45,9 @@ body {
   border-width: 0;
   margin: 1px;
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .btnOther:active {
   background: #76777d;
@@ -61,6 +61,9 @@ body {
   border-width: 0;
   margin: 1px;
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .btnNum:active {
   background: #8c8d91;

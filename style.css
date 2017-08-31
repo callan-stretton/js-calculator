@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+#heading {
+  max-width: 185px;
+  margin: 0 auto;
+}
+
 #calculator {
   background-color: black; /* #778ad6; */
   max-width: 185px;
@@ -35,9 +40,6 @@ input[type="button"] {
   border-width: 0;
   margin: 1px;
   outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 .btnOptr:active {
   background: #dc6600;
@@ -51,9 +53,6 @@ input[type="button"] {
   border-width: 0;
   margin: 1px;
   outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 .btnOther:active {
   background: #76777d;
@@ -67,9 +66,6 @@ input[type="button"] {
   border-width: 0;
   margin: 1px;
   outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 .btnNum:active {
   background: #8c8d91;

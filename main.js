@@ -1,14 +1,14 @@
 //var calculation = Number(inputField.value);
 var inputField = document.getElementById("inputF");
 inputField.value = "0";
-var hiddenString = "";
+var hiddenString = "(";
 var modifiedOpString = "";
 
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
 
-function removeFirstZero () {
+function removeFirstZero () { //ie. "0123" looks like "123"
   for (var i = 0; i < inputField.value.length; i++) {
     if (inputField.value[0] = "0") {
       var newInputField = inputField.value.replaceAt(0, " ");
@@ -18,16 +18,21 @@ function removeFirstZero () {
 }
 
 
-function checkForOperator () {
-  //if operator then clear it
+function checkForOperator () { // makes the display only show most recent entry > not the operator
   for (var i = 0; i < modifiedOpString.length; i++) {
-    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+")) {
+    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
       inputField.value = " ";
       newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
       console.log("newModifiedOpString: " + newModifiedOpString);
       modifiedOpString = newModifiedOpString;
     }
   }
+}
+
+function bedmass () { //on hiddenString: put ")" at length -1 then add "(" right at the end (after the operator)
+  hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
+  hiddenString += "(";
+  console.log(hiddenString);
 }
 
 function numBtnClicked () {
@@ -37,6 +42,7 @@ function numBtnClicked () {
 }
 
 function optrBtnClicked () {
+  bedmass();
   console.log("Operator Button Clicked");
   console.log("hidden string: " + hiddenString);
   return true;
@@ -47,7 +53,10 @@ function optrBtnClicked () {
 // Operator Buttons
 
 function btnEquals () {
+  //add ")" to end of hiddenString
+  hiddenString += ")";
   var answer = eval(hiddenString);
+  console.log(hiddenString);
   console.log("hidden string answer: " + answer);
   inputField.value = answer;
 }
@@ -81,8 +90,15 @@ function btnAdd () {
 
 function btnAC () {
   inputField.value = "0";
-  hiddenString = "";
+  hiddenString = "(";
+  modifiedOpString = "";
   console.log("hidden string: " + hiddenString);
+}
+
+function btnModulo () {
+  hiddenString += "%";
+  modifiedOpString += "%";
+  optrBtnClicked(); //pretty much an operator button
 }
 
 

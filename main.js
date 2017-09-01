@@ -30,6 +30,7 @@ function checkForOperator () { // makes the display only show most recent entry 
 }
 
 function bedmass () { //on hiddenString: put ")" at length -1 then add "(" right at the end (after the operator)
+  //if (!contains = ) {
   hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
   hiddenString += "(";
   console.log(hiddenString);
@@ -59,6 +60,7 @@ function btnEquals () {
   console.log(hiddenString);
   console.log("hidden string answer: " + answer);
   inputField.value = answer;
+  hiddenString = "(" + answer;
 }
 
 function btnDiv () {

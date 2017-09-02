@@ -96,6 +96,7 @@ function btnAC () {
   inputField.value = "0";
   hiddenString = "(";
   modifiedOpString = "";
+  hiddenDecString = "";
   console.log("hidden string: " + hiddenString);
 }
 

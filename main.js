@@ -4,22 +4,14 @@ inputField.value = "0";
 var hiddenString = "(";
 var modifiedOpString = "";
 var hiddenDecString = "";
-var numberButtonString = "";
+//var numberButtonString = "";
+var numCount = 0;
 var zeroCount = 1;
 
-var numCount = numberButtonString.split("N").length - 1;
+//var numCount = numberButtonString.split("N").length - 1;
 
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
-}
-
-function removeFirstZero () { //ie. "0123" looks like "123"
-  for (var i = 0; i < inputField.value.length; i++) {
-    if (inputField.value[0] = "0") {
-      var newInputField = inputField.value.replaceAt(0, " ");
-      inputField.value = newInputField;
-    }
-  }
 }
 
 
@@ -28,7 +20,8 @@ function checkForOperator () { // makes the display only show most recent entry 
     if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
       inputField.value = " "; // needs space
       hiddenDecString = " ";
-      numberButtonString = " ";
+      //numberButtonString = " ";
+      numCount = 0;
       zeroCount = 0;
       newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
       console.log("newModifiedOpString: " + newModifiedOpString);
@@ -45,11 +38,12 @@ function bedmass () { //on hiddenString: put ")" at length -1 then add "(" right
 }
 
 function numBtnClicked () {
-  numberButtonString += "N";
-  console.log(numberButtonString);
+  //numberButtonString += "N";
+  //console.log(numberButtonString);
+  numCount ++;
+  console.log("numCount = " + numCount);
   console.log("Number Button Clicked");
   console.log("hidden string: " + hiddenString);
-  return true;
 }
 
 function optrBtnClicked () {
@@ -105,7 +99,8 @@ function btnAC () {
   hiddenString = "(";
   modifiedOpString = "";
   hiddenDecString = "";
-  numberButtonString = "";
+  //numberButtonString = "";
+  numCount = 0;
   zeroCount = 0;
   console.log("hidden string: " + hiddenString);
 }
@@ -212,8 +207,7 @@ function btnNumNine (evt) {
 function btnNumZero (evt) {
   checkForOperator ();
   checkZeroCount();
-  //removeFirstZero();
-  //numBtnClicked();
+  console.log("hidden string: " + hiddenString);
 }
 function btnNumDec (evt) {
   checkForOperator ();
@@ -239,7 +233,8 @@ function checkDecCount () {
 function checkZeroCount () {
   zeroCount ++;
   console.log("zeroCount = " + zeroCount);
-  if (numCount > 0) {
+  console.log("numCount = " + numCount);
+  if (numCount >= 1) {
     hiddenString += "0";
     inputField.value += "0";
   } else if (zeroCount >= 1) {

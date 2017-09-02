@@ -3,6 +3,7 @@ var inputField = document.getElementById("inputF");
 inputField.value = "0";
 var hiddenString = "(";
 var modifiedOpString = "";
+var hiddenDecString = "";
 
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
@@ -22,6 +23,7 @@ function checkForOperator () { // makes the display only show most recent entry 
   for (var i = 0; i < modifiedOpString.length; i++) {
     if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
       inputField.value = " ";
+      hiddenDecString = " ";
       newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
       console.log("newModifiedOpString: " + newModifiedOpString);
       modifiedOpString = newModifiedOpString;
@@ -107,77 +109,91 @@ function btnModulo () {
 // Number Buttons
 
 function btnNumOne (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "1";
   hiddenString += "1";
   numBtnClicked();
   removeFirstZero();
 }
 function btnNumTwo (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "2";
   hiddenString += "2";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumThree (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "3";
   hiddenString += "3";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumFour (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "4";
   hiddenString += "4";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumFive (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "5";
   hiddenString += "5";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumSix (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "6";
   hiddenString += "6";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumSeven (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "7";
   hiddenString += "7";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumEight (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "8";
   hiddenString += "8";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumNine (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "9";
   hiddenString += "9";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumZero (evt) {
-  checkForOperator ()
+  checkForOperator ();
   inputField.value += "0";
   hiddenString += "0";
   removeFirstZero();
-  numBtnClicked()
+  numBtnClicked();
 }
 function btnNumDec (evt) {
-  checkForOperator ()
-  inputField.value += ".";
-  hiddenString += ".";
+  checkForOperator ();
+  hiddenDecString += ".";
+  console.log("hiddenDecString = " + hiddenDecString)
+  checkDecCount ();
+}
+
+
+function checkDecCount () {
+  var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
+  console.log("decCount = " + decCount);
+  if (decCount <= 1) {
+    hiddenString += ".";
+    inputField.value += ".";
+  } else {
+    hiddenString += "";
+    inputField.value += "";
+  }
 }

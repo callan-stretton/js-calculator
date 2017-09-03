@@ -3,10 +3,11 @@ var inputField = document.getElementById("inputF");
 inputField.value = "0";
 var hiddenString = "(";
 var modifiedOpString = "";
-var hiddenDecString = "";
+//var hiddenDecString = "";
 //var numberButtonString = "";
 var numCount = 0;
 var zeroCount = 1;
+var decCount = 0;
 
 //var numCount = numberButtonString.split("N").length - 1;
 
@@ -19,7 +20,8 @@ function checkForOperator () { // makes the display only show most recent entry 
   for (var i = 0; i < modifiedOpString.length; i++) {
     if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
       inputField.value = " "; // needs space
-      hiddenDecString = " ";
+      //hiddenDecString = " ";
+      decCount = 0;
       //numberButtonString = " ";
       numCount = 0;
       zeroCount = 0;
@@ -98,7 +100,8 @@ function btnAC () {
   inputField.value = "0";
   hiddenString = "(";
   modifiedOpString = "";
-  hiddenDecString = "";
+  //hiddenDecString = "";
+  decCount = 0;
   //numberButtonString = "";
   numCount = 0;
   zeroCount = 0;
@@ -113,10 +116,11 @@ function btnModulo () {
 
 
 // Number Buttons
+//or decimal  count <1
 
 function btnNumOne (evt) {
   checkForOperator ();
-  if (numCount >= 1){ // because inputField.value = "0" initially we must go = or +=
+  if (numCount >= 1 || decCount == 1){ // because inputField.value = "0" initially we must go = or +=
     inputField.value += "1";
   } else {
     inputField.value = "1";
@@ -126,7 +130,7 @@ function btnNumOne (evt) {
 }
 function btnNumTwo (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "2";
   } else {
     inputField.value = "2";
@@ -136,7 +140,7 @@ function btnNumTwo (evt) {
 }
 function btnNumThree (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "3";
   } else {
     inputField.value = "3";
@@ -146,7 +150,7 @@ function btnNumThree (evt) {
 }
 function btnNumFour (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "4";
   } else {
     inputField.value = "4";
@@ -156,7 +160,7 @@ function btnNumFour (evt) {
 }
 function btnNumFive (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "5";
   } else {
     inputField.value = "5";
@@ -166,7 +170,7 @@ function btnNumFive (evt) {
 }
 function btnNumSix (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "6";
   } else {
     inputField.value = "6";
@@ -176,7 +180,7 @@ function btnNumSix (evt) {
 }
 function btnNumSeven (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "7";
   } else {
     inputField.value = "7";
@@ -186,7 +190,7 @@ function btnNumSeven (evt) {
 }
 function btnNumEight (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "8";
   } else {
     inputField.value = "8";
@@ -196,7 +200,7 @@ function btnNumEight (evt) {
 }
 function btnNumNine (evt) {
   checkForOperator ();
-  if (numCount >= 1){
+  if (numCount >= 1 || decCount == 1){
     inputField.value += "9";
   } else {
     inputField.value = "9";
@@ -211,15 +215,20 @@ function btnNumZero (evt) {
 }
 function btnNumDec (evt) {
   checkForOperator ();
-  hiddenDecString += ".";
-  console.log("hiddenDecString = " + hiddenDecString)
+  //hiddenDecString += ".";
+  decCount ++;
+  //console.log("hiddenDecString = " + hiddenDecString)
   checkDecCount ();
 }
 
 function checkDecCount () {
-  var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
+  // var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
   console.log("decCount = " + decCount);
-  if (decCount <= 1) {
+  if (numCount < 1) {
+    console.log("numCount less than");
+    inputField.value = "0.";
+    hiddenString += "0.";
+  } else if (decCount <= 1) {
     hiddenString += ".";
     inputField.value += ".";
   } else {
@@ -227,6 +236,18 @@ function checkDecCount () {
     inputField.value += "";
   }
 }
+
+// function checkDecCount () {
+//   var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
+//   console.log("decCount = " + decCount);
+//   if (decCount <= 1) {
+//     hiddenString += ".";
+//     inputField.value += ".";
+//   } else {
+//     hiddenString += "";
+//     inputField.value += "";
+//   }
+// }
 
 //zeros if !"." "N" then similar to above
 //if no number print one zero if more than one zero no more

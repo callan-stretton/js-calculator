@@ -55,8 +55,6 @@ function optrBtnClicked () {
   return true;
 }
 
-
-
 // Operator Buttons
 
 function btnEquals () {
@@ -69,7 +67,18 @@ function btnEquals () {
   hiddenString = "(" + answer;
 }
 
+
+
+// function currentEval () {
+//   console.log("what is it now?" + hiddenString);
+//   var currentEvalu = eval(hiddenString);
+//   console.log(currentEvalu);
+//   inputField.value = currentEvalu;
+//   console.log(hiddenString);
+// }
+
 function btnDiv () {
+  //currentEval();
   hiddenString += "/";
   modifiedOpString += "/";
   optrBtnClicked();

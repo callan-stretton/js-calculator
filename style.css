@@ -1,8 +1,17 @@
+/*body {
+  margin: 0;
+}*/
+
 body {
   margin: 0;
+  background: url(https://source.unsplash.com/XY9tbPYhR34/1600x900
+  ) no-repeat center center;
+  background-size: cover;
+  min-height: 700px;
 }
 
 #heading {
+  color: white;
   max-width: 185px;
   margin: 0 auto;
 }
@@ -11,7 +20,7 @@ body {
   background-color: black; /* #778ad6; */
   max-width: 185px;
   font-size: 0; /* removes white space between inputs */
-  margin: 0 auto;
+  margin: 70px auto 0 auto;
   padding: 2px;
 }
 

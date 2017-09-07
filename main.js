@@ -1,47 +1,45 @@
-var inputField = document.getElementById("inputF");
-inputField.value = "0";
-var hiddenString = "(";
-var modifiedOpString = "";
-var numCount = 0;
-var zeroCount = 0;
-var decCount = 0;
-var equalsSet = false;
+var inputField = document.getElementById("inputF"); // calculator display
+inputField.value = "0"; // calculator display starts with "0" in display
+var hiddenString = "("; // "(" for bedmass purposes
+var modifiedOpString = ""; // to show in the display when using operators
+var numCount = 0; // counts how many number buttons pressed between operations
+var zeroCount = 0; // counts how many zero buttons pressed between operations
+var decCount = 0; // counts how many decimal buttons pressed between operations
+var equalsSet = false; // tells you whether the equals button has just been pressed
 
-String.prototype.replaceAt = function(index, replacement) {
-    return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
-}
-
-
-function checkForOperator () { // makes the display only show most recent entry > not the operator
-  for (var i = 0; i < modifiedOpString.length; i++) {
-    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
-      //if hiddenString has 2 of the same operator, eg "**" then remove both and untoggle button colour
-      //if hiddenString has 2 different operators, remove the second to last, keep the last and untoggle first button colour and toggle on latest one
-      inputField.value = " "; // needs space
-      decCount = 0;
-      numCount = 0;
-      zeroCount = 0;
-      newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
-      modifiedOpString = newModifiedOpString;
+function addThisNumber(N) {
+  if (equalsSet) { // if equalsSet is true
+    inputField.value += ""; // can't add additional numbers to inputField.value
+    hiddenString += ""; // and can't add additional numbers to hiddenString
+  } else {
+    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
+      inputField.value += N;
+    } else {
+      inputField.value = N;
     }
+    hiddenString += N;
+    numCount ++;
   }
 }
 
-function bedmass () { //on hiddenString: put ")" at length -1 then add "(" right at the end (after the operator)
-  hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
-  hiddenString += "(";
-}
+function checkForOperator () { // makes the display only show most recent entry > not the operator
+  String.prototype.replaceAt = function(index, replacement) {
+      return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+  } // used to replace the last character in a string
 
-function numBtnClicked () {
-  //new code here
-  numCount ++;
+  for (var i = 0; i < modifiedOpString.length; i++) {
+    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
+      // NEED TO ADD - if hiddenString has 2 of the same operator, eg "**" then remove both and untoggle button colour
+      // NEED TO ADD - if hiddenString has 2 different operators, remove the second to last, keep the last and untoggle first button colour and toggle on latest one
+      inputField.value = " "; // needs space
+      decCount = 0; // reset decCount
+      numCount = 0; // reset numCount
+      zeroCount = 0; // reset zeroCount
+      newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
+      modifiedOpString = newModifiedOpString; // replaces last operator with a blank space
+    }
+  }
 }
-
-function optrBtnClicked () {
-  bedmass();
-}
-
-// Operator Buttons
 
 function btnEquals () {
   hiddenString += ")";
@@ -51,42 +49,15 @@ function btnEquals () {
   inputField.value = answer;
   hiddenString = "(" + answer;
   equalsSet = true;
-  console.log ("equalsSet = " + equalsSet);
 }
 
-function btnDiv () {
+function addThisOp (X) {
   equalsSet = false;
-  hiddenString += "/";
-  modifiedOpString += "/";
-  optrBtnClicked();
-}
-
-function btnMul () {
-  equalsSet = false;
-  hiddenString += "*";
-  modifiedOpString += "*";
-  optrBtnClicked();
-}
-
-function btnMin () {
-  equalsSet = false;
-  hiddenString += "-";
-  modifiedOpString += "-";
-  optrBtnClicked();
-}
-
-function btnAdd () {
-  equalsSet = false;
-  hiddenString += "+";
-  modifiedOpString += "+";
-  optrBtnClicked();
-}
-
-function btnModulo () {
-  equalsSet = false;
-  hiddenString += "%";
-  modifiedOpString += "%";
-  optrBtnClicked(); //pretty much an operator button
+  hiddenString += X;
+  modifiedOpString += X;
+  // BEDMASS bracket handlers
+  hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
+  hiddenString += "(";
 }
 
 // Other Buttons
@@ -99,161 +70,6 @@ function btnAC () {
   decCount = 0;
   numCount = 0;
   zeroCount = 0;
-}
-
-// Number Buttons
-
-function btnNumOne (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "1";
-    } else {
-      inputField.value = "1";
-    }
-    hiddenString += "1";
-  }
-  numBtnClicked();
-}
-
-function btnNumTwo (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "2";
-    } else {
-      inputField.value = "2";
-    }
-    hiddenString += "2";
-  }
-  numBtnClicked();
-}
-
-function btnNumThree (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "3";
-    } else {
-      inputField.value = "3";
-    }
-    hiddenString += "3";
-  }
-  numBtnClicked();
-}
-
-function btnNumFour (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "4";
-    } else {
-      inputField.value = "4";
-    }
-    hiddenString += "4";
-  }
-  numBtnClicked();
-}
-
-function btnNumFive (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "5";
-    } else {
-      inputField.value = "5";
-    }
-    hiddenString += "5";
-  }
-  numBtnClicked();
-}
-
-function btnNumSix (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "6";
-    } else {
-      inputField.value = "6";
-    }
-    hiddenString += "6";
-  }
-  numBtnClicked();
-}
-
-function btnNumSeven (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "7";
-    } else {
-      inputField.value = "7";
-    }
-    hiddenString += "7";
-  }
-  numBtnClicked();
-}
-
-function btnNumEight (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "8";
-    } else {
-      inputField.value = "8";
-    }
-    hiddenString += "8";
-  }
-  numBtnClicked();
-}
-
-function btnNumNine (evt) {
-  checkForOperator ();
-  if (equalsSet) { // if equalsSet is true
-    inputField.value += ""; // can't add additional numbers to inputField.value
-    hiddenString += ""; // and can't add additional numbers to hiddenString
-  } else {
-    if (numCount >= 1 || decCount >= 1) { // because inputField.value = "0" initially we must go = or +=
-      inputField.value += "9";
-    } else {
-      inputField.value = "9";
-    }
-    hiddenString += "9";
-  }
-  numBtnClicked();
-}
-
-function btnNumZero (evt) {
-  checkForOperator ();
-  checkZeroCount();
-}
-function btnNumDec (evt) {
-  checkForOperator ();
-  checkDecCount ();
 }
 
 function checkZeroCount () {

@@ -1,15 +1,10 @@
-//var calculation = Number(inputField.value);
 var inputField = document.getElementById("inputF");
 inputField.value = "0";
 var hiddenString = "(";
 var modifiedOpString = "";
-//var hiddenDecString = "";
-//var numberButtonString = "";
 var numCount = 0;
-var zeroCount = 1;
+var zeroCount = 0;
 var decCount = 0;
-
-//var numCount = numberButtonString.split("N").length - 1;
 
 String.prototype.replaceAt = function(index, replacement) {
     return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
@@ -19,46 +14,34 @@ String.prototype.replaceAt = function(index, replacement) {
 function checkForOperator () { // makes the display only show most recent entry > not the operator
   for (var i = 0; i < modifiedOpString.length; i++) {
     if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
+      //if hiddenString has 2 of the same operator, eg "**" then remove both and untoggle button colour
+      //if hiddenString has 2 different operators, remove the second to last, keep the last and untoggle first button colour and toggle on latest one
       inputField.value = " "; // needs space
-      //hiddenDecString = " ";
       decCount = 0;
-      //numberButtonString = " ";
       numCount = 0;
       zeroCount = 0;
       newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
-      console.log("newModifiedOpString: " + newModifiedOpString);
       modifiedOpString = newModifiedOpString;
     }
   }
 }
 
 function bedmass () { //on hiddenString: put ")" at length -1 then add "(" right at the end (after the operator)
-  //if (!contains = ) {
   hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
   hiddenString += "(";
-  console.log(hiddenString);
 }
 
 function numBtnClicked () {
-  //numberButtonString += "N";
-  //console.log(numberButtonString);
   numCount ++;
-  console.log("numCount = " + numCount);
-  console.log("Number Button Clicked");
-  console.log("hidden string: " + hiddenString);
 }
 
 function optrBtnClicked () {
   bedmass();
-  console.log("Operator Button Clicked");
-  console.log("hidden string: " + hiddenString);
-  return true;
 }
 
 // Operator Buttons
 
 function btnEquals () {
-  //add ")" to end of hiddenString
   hiddenString += ")";
   var answer = eval(hiddenString);
   console.log(hiddenString);
@@ -67,18 +50,7 @@ function btnEquals () {
   hiddenString = "(" + answer;
 }
 
-
-
-// function currentEval () {
-//   console.log("what is it now?" + hiddenString);
-//   var currentEvalu = eval(hiddenString);
-//   console.log(currentEvalu);
-//   inputField.value = currentEvalu;
-//   console.log(hiddenString);
-// }
-
 function btnDiv () {
-  //currentEval();
   hiddenString += "/";
   modifiedOpString += "/";
   optrBtnClicked();
@@ -102,6 +74,11 @@ function btnAdd () {
   optrBtnClicked();
 }
 
+function btnModulo () {
+  hiddenString += "%";
+  modifiedOpString += "%";
+  optrBtnClicked(); //pretty much an operator button
+}
 
 // Other Buttons
 
@@ -109,27 +86,16 @@ function btnAC () {
   inputField.value = "0";
   hiddenString = "(";
   modifiedOpString = "";
-  //hiddenDecString = "";
   decCount = 0;
-  //numberButtonString = "";
   numCount = 0;
   zeroCount = 0;
-  console.log("hidden string: " + hiddenString);
 }
-
-function btnModulo () {
-  hiddenString += "%";
-  modifiedOpString += "%";
-  optrBtnClicked(); //pretty much an operator button
-}
-
 
 // Number Buttons
-//or decimal  count <1
 
 function btnNumOne (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){ // because inputField.value = "0" initially we must go = or +=
+  if (numCount >= 1 || decCount >= 1){ // because inputField.value = "0" initially we must go = or +=
     inputField.value += "1";
   } else {
     inputField.value = "1";
@@ -139,7 +105,7 @@ function btnNumOne (evt) {
 }
 function btnNumTwo (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "2";
   } else {
     inputField.value = "2";
@@ -149,7 +115,7 @@ function btnNumTwo (evt) {
 }
 function btnNumThree (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "3";
   } else {
     inputField.value = "3";
@@ -159,7 +125,7 @@ function btnNumThree (evt) {
 }
 function btnNumFour (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "4";
   } else {
     inputField.value = "4";
@@ -169,7 +135,7 @@ function btnNumFour (evt) {
 }
 function btnNumFive (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "5";
   } else {
     inputField.value = "5";
@@ -179,7 +145,7 @@ function btnNumFive (evt) {
 }
 function btnNumSix (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "6";
   } else {
     inputField.value = "6";
@@ -189,7 +155,7 @@ function btnNumSix (evt) {
 }
 function btnNumSeven (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "7";
   } else {
     inputField.value = "7";
@@ -199,7 +165,7 @@ function btnNumSeven (evt) {
 }
 function btnNumEight (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "8";
   } else {
     inputField.value = "8";
@@ -209,7 +175,7 @@ function btnNumEight (evt) {
 }
 function btnNumNine (evt) {
   checkForOperator ();
-  if (numCount >= 1 || decCount == 1){
+  if (numCount >= 1 || decCount >= 1){
     inputField.value += "9";
   } else {
     inputField.value = "9";
@@ -220,58 +186,43 @@ function btnNumNine (evt) {
 function btnNumZero (evt) {
   checkForOperator ();
   checkZeroCount();
-  console.log("hidden string: " + hiddenString);
 }
 function btnNumDec (evt) {
   checkForOperator ();
-  //hiddenDecString += ".";
-  decCount ++;
-  //console.log("hiddenDecString = " + hiddenDecString)
   checkDecCount ();
 }
 
 function checkDecCount () {
   // var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
-  console.log("decCount = " + decCount);
-  if (numCount < 1) {
-    console.log("numCount less than");
-    inputField.value = "0.";
-    hiddenString += "0.";
-  } else if (decCount <= 1) {
-    hiddenString += ".";
-    inputField.value += ".";
-  } else {
-    hiddenString += "";
-    inputField.value += "";
+  decCount ++; // add to decCount
+  if (numCount < 1 && !hiddenString.includes(".")) { // if numcount < 1 AND hiddenString doesn't have a "."
+    inputField.value = "0."; // change inputField.value to "0."
+    hiddenString += "0."; // and add "0." to hiddenString
+  } else if (decCount <= 1) { // otherwise if decCount <= 1 (doesn't have ".")
+    hiddenString += "0."; // add a "0." to hiddenString
+    inputField.value += "."; // and add "." to inputField.value (because it clears as "0" anyway)
+  } else { // otherwise if it already has a "."
+    hiddenString += ""; // add nothing to hiddenString
+    inputField.value += ""; // and add nothing to inputField.value
   }
+  console.log("hiddenString = " + hiddenString);
+  console.log("zeroCount = " + zeroCount);
+  console.log("deCount = " + decCount);
 }
 
-// function checkDecCount () {
-//   var decCount = hiddenDecString.split(".").length - 1; // splits string into array at point of Dec counts number of items in index, (-1) which will give you the number of Dec points
-//   console.log("decCount = " + decCount);
-//   if (decCount <= 1) {
-//     hiddenString += ".";
-//     inputField.value += ".";
-//   } else {
-//     hiddenString += "";
-//     inputField.value += "";
-//   }
-// }
-
-//zeros if !"." "N" then similar to above
-//if no number print one zero if more than one zero no more
 function checkZeroCount () {
-  zeroCount ++;
-  console.log("zeroCount = " + zeroCount);
-  console.log("numCount = " + numCount);
-  if (numCount >= 1) {
-    hiddenString += "0";
-    inputField.value += "0";
-  } else if (zeroCount >= 1) {
-    hiddenString += "";
-    inputField.value = "0";
+  zeroCount ++; // add to zeroCount
+  if (numCount >= 1 | decCount >= 1) { // if numCount OR decCount >= to 1
+    hiddenString += "0"; // add "0" to hiddenString
+    inputField.value += "0"; // and add "0" to inputField.value
+  } else if (zeroCount >= 1) { // otherwise if zeroCount >= to 1
+    hiddenString += ""; // add nothing to hiddenString
+    inputField.value = "0"; // and add "0" to inputField.value
   } else {
-    hiddenString += "";
-    inputField.value += "";
+    hiddenString += ""; // add nothing to hiddenString
+    inputField.value += ""; // and add nothing to inputField.value
   }
+  console.log("hiddenString = " + hiddenString);
+  console.log("zeroCount = " + zeroCount);
+  console.log("deCount = " + decCount);
 }

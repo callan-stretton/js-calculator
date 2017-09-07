@@ -7,6 +7,8 @@ var zeroCount = 0; // counts how many zero buttons pressed between operations
 var decCount = 0; // counts how many decimal buttons pressed between operations
 var equalsSet = false; // tells you whether the equals button has just been pressed
 
+// number buttons
+
 function addThisNumber(N) {
   if (equalsSet) { // if equalsSet is true
     inputField.value += ""; // can't add additional numbers to inputField.value
@@ -22,57 +24,7 @@ function addThisNumber(N) {
   }
 }
 
-function checkForOperator () { // makes the display only show most recent entry > not the operator
-  String.prototype.replaceAt = function(index, replacement) {
-      return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-  } // used to replace the last character in a string
-
-  for (var i = 0; i < modifiedOpString.length; i++) {
-    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
-      // NEED TO ADD - if hiddenString has 2 of the same operator, eg "**" then remove both and untoggle button colour
-      // NEED TO ADD - if hiddenString has 2 different operators, remove the second to last, keep the last and untoggle first button colour and toggle on latest one
-      inputField.value = " "; // needs space
-      decCount = 0; // reset decCount
-      numCount = 0; // reset numCount
-      zeroCount = 0; // reset zeroCount
-      newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
-      modifiedOpString = newModifiedOpString; // replaces last operator with a blank space
-    }
-  }
-}
-
-function btnEquals () {
-  hiddenString += ")";
-  var answer = eval(hiddenString);
-  console.log(hiddenString);
-  console.log("hidden string answer: " + answer);
-  inputField.value = answer;
-  hiddenString = "(" + answer;
-  equalsSet = true;
-}
-
-function addThisOp (X) {
-  equalsSet = false;
-  hiddenString += X;
-  modifiedOpString += X;
-  // BEDMASS bracket handlers
-  hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
-  hiddenString += "(";
-}
-
-// Other Buttons
-
-function btnAC () {
-  equalsSet = false;
-  inputField.value = "0";
-  hiddenString = "(";
-  modifiedOpString = "";
-  decCount = 0;
-  numCount = 0;
-  zeroCount = 0;
-}
-
-function checkZeroCount () {
+function addZero () {
   if (equalsSet) { // if equalsSet is true
     inputField.value += ""; // can't add additional zeros to inputField.value
     hiddenString += ""; // and can't add additional zeros to hiddenString
@@ -91,7 +43,7 @@ function checkZeroCount () {
   }
 }
 
-function checkDecCount () {
+function addDec () {
   if (equalsSet) { // if equalsSet is true
     inputField.value += ""; // can't add additional "." to inputField.value
     hiddenString += ""; // and can't add additional "." to hiddenString
@@ -106,6 +58,70 @@ function checkDecCount () {
     } else { // otherwise if it already has a "."
       hiddenString += ""; // add nothing to hiddenString
       inputField.value += ""; // and add nothing to inputField.value
+    }
+  }
+}
+
+// operator buttons
+
+function togglePosNeg () { // +/-
+  var placement = modifiedOpString.value.length;
+  console.log("length = " + placement);
+  // if (!inputField.value.includes"-"){
+  //
+  // }
+}
+
+function addThisOp (X) {
+  equalsSet = false;
+  hiddenString += X;
+  //inputField.value += X; // modifiedOpString test
+  modifiedOpString += X;
+  // BEDMASS bracket handlers
+  hiddenString = hiddenString.substr(hiddenString.length[0],hiddenString.length-1) + ")" + hiddenString.substr(hiddenString.length-1);
+  hiddenString += "(";
+  // NEED TO ADD - if hiddenString has 2 of the same operator, eg "**" then remove both and untoggle button colour
+  // NEED TO ADD - if hiddenString has 2 different operators, remove the second to last, keep the last and untoggle first button colour and toggle on latest one
+}
+
+function btnEquals () {
+  hiddenString += ")";
+  var answer = eval(hiddenString);
+  console.log(hiddenString);
+  console.log("hidden string answer: " + answer);
+  inputField.value = answer;
+  hiddenString = "(" + answer;
+  equalsSet = true;
+}
+
+function btnAC () {
+  equalsSet = false;
+  inputField.value = "0";
+  hiddenString = "(";
+  modifiedOpString = "";
+  decCount = 0;
+  numCount = 0;
+  zeroCount = 0;
+}
+
+// function that hides operators in display screen
+
+function checkForOperator () { // makes the display only show most recent entry > not the operator
+  console.log("modifiedOpString + " + modifiedOpString);
+  String.prototype.replaceAt = function(index, replacement) {
+      return this.substr(0, index) + replacement; // + this.substr(index + replacement.length); (not needed as added to the end)
+  } // used to replace the last character in a string
+
+  for (var i = 0; i < modifiedOpString.length; i++) {
+    if (modifiedOpString.includes("/") || modifiedOpString.includes("*") || modifiedOpString.includes("-") || modifiedOpString.includes("+") || modifiedOpString.includes("%")) {
+      inputField.value = " "; // needs space
+      decCount = 0; // reset decCount
+      numCount = 0; // reset numCount
+      zeroCount = 0; // reset zeroCount
+      newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
+      modifiedOpString = newModifiedOpString; // replaces last operator with a blank space
+    } else {
+      console.log("does not contain operator");
     }
   }
 }

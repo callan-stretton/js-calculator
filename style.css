@@ -21,7 +21,7 @@ body {
   max-width: 185px;
   font-size: 0; /* removes white space between inputs */
   margin: 70px auto 0 auto;
-  padding: 2px; 
+  padding: 2px;
 }
 
 #inputF {
@@ -50,7 +50,7 @@ input[type="button"] {
   margin: 1px;
   outline: none;
 }
-.btnOptr:active {
+.btnOptr.active {
   background: #dc6600;
 }
 

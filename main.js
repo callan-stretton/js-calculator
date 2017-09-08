@@ -107,7 +107,7 @@ function btnAC () {
 // function that hides operators in display screen
 
 function checkForOperator () { // makes the display only show most recent entry > not the operator
-  console.log("modifiedOpString + " + modifiedOpString);
+  //console.log("modifiedOpString + " + modifiedOpString);
   String.prototype.replaceAt = function(index, replacement) {
       return this.substr(0, index) + replacement; // + this.substr(index + replacement.length); (not needed as added to the end)
   } // used to replace the last character in a string
@@ -121,7 +121,7 @@ function checkForOperator () { // makes the display only show most recent entry 
       newModifiedOpString = modifiedOpString.replaceAt(modifiedOpString.length -1, " ");
       modifiedOpString = newModifiedOpString; // replaces last operator with a blank space
     } else {
-      console.log("does not contain operator");
+      //console.log("does not contain operator");
     }
   }
 }
